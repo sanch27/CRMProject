@@ -2,11 +2,13 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import SignUpForm, AddRecordForm
-from .models import Record
+from .models import Record, Courses, Packages, PackageOptions, Subscriptions
 
 # Create your views here.
 def home(request):
     records = Record.objects.all()
+   
+
     #check to see if loggin in
     if request.method == 'POST' :
         username = request.POST['username']
@@ -96,3 +98,9 @@ def update_record(request, pk):
 	else:
 		messages.success(request, "You Must Be Logged In...")
 		return redirect('home')
+
+
+
+      
+
+
