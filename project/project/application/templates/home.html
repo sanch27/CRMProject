@@ -49,6 +49,40 @@
     </tbody>
   </table>
 
+  <br/>
+  <br/>
+  <br/>
+
+
+  <table class="table table-striped table-hover table-bordered ">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">description</th>
+      <th scope="col">Id</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+          {% if course %}
+               {% for course in course %}
+      <tr>
+        
+        <td>{{ course.name }}</td>
+        <td>{{ course.description }}</td>
+        <td><a href="{% url 'course_list' course.id %}">{{ course.id }}</a></td>
+      </tr>
+
+               {% endfor %}
+
+          {% endif %}
+
+
+
+      </tr>
+  </tbody>
+</table>
+
 
 
 
@@ -82,3 +116,8 @@
 {% endif %}
 
 {% endblock %}
+
+
+
+
+

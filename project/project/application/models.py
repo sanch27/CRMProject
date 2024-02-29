@@ -44,11 +44,11 @@ class PackageOptions(models.Model):
 
 
 class Subscription(models.Model):
-    subscription_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    package = models.ForeignKey(Package, on_delete=models.CASCADE)
-    payment_date = models.DateTimeField()
-    expiry_date = models.DateTimeField()
+    SubscriptionID = models.AutoField(primary_key=True)
+    UserID = models.ForeignKey(User, on_delete=models.CASCADE)
+    PackageID = models.ForeignKey(Package, on_delete=models.CASCADE)
+    PaymentDate = models.DateField()
+    ExpiryDate = models.DateField()
 
     def __str__(self):
-        return (f"subscription_id: {self.subscription_id}, UserID: {self.user}, package_id: {self.package}, PaymentDate: {self.payment_date}, ExpiryDate: {self.expiry_date}")
+        return(f"SubscriptionID: {self.SubscriptionID}, UserID: {self.UserID}, PackageID: {self.PackageID}, PaymentDate: {self.PaymentDate}, ExpiryDate: {self.ExpiryDate}")

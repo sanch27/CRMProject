@@ -75,4 +75,16 @@ class PackageOptionsForm(forms.ModelForm):
 class SubscriptionForm(forms.ModelForm):
     class Meta:
         model = Subscription
-        fields = ['subscription_id', 'user', 'package', 'payment_date', 'expiry_date']		
+        fields = ['UserID', 'PackageID', 'PaymentDate', 'ExpiryDate']	
+        
+
+
+
+# Create Add Course Form
+class AddCourseForm(forms.ModelForm):
+	name = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Name", "class":"form-control"}), label="")
+	description = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Description", "class":"form-control"}), label="")
+	
+	class Meta:
+		model = Course
+		exclude = ("user",)

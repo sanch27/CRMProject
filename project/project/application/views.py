@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .forms import SignUpForm, AddRecordForm, CourseForm, PackageForm, PackageOptionsForm, SubscriptionForm
+from .forms import SignUpForm, AddRecordForm, AddCourseForm, PackageForm, PackageOptionsForm, SubscriptionForm
 from .models import Record, Course, Package, PackageOptions, Subscription
  
 
@@ -103,35 +103,55 @@ def update_record(request, pk):
       
 
 
-def course_list(request):
-    courses = Course.objects.all()
-    return render(request, 'myapp/course_list.html', {'courses': courses})
-
-def course_create(request):
-    if request.method == 'POST':
-        form = CourseForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('course_list')
+def course_list(request, pk):
+    if request.user.is_authenticated:
+        #Look Up Records
+        course_list = Course.objects.get(id=pk)
+        return render(request, 'course_list.html',{'course_list':course_list})
     else:
-        form = CourseForm()
-    return render(request, 'myapp/course_form.html', {'form': form})
+        messages.success(request, "You must be logged in to view.... ")
+        return redirect('home')
+    
 
-def course_update(request, pk):
-    course = get_object_or_404(Course, pk=pk)
-    if request.method == 'POST':
-        form = CourseForm(request.POST, instance=course)
-        if form.is_valid():
-            form.save()
-            return redirect('course_list')
-    else:
-        form = CourseForm(instance=course)
-    return render(request, 'myapp/course_form.html', {'form': form})
+def delete_course(request, pk):
+	if request.user.is_authenticated:
+		delete_it = Course.objects.get(id=pk)
+		delete_it.delete()
+		messages.success(request, "course Deleted Successfully...")
+		return redirect('home')
+	else:
+		messages.success(request, "You Must Be Logged In To Do That...")
+		return redirect('home')
 
-def course_delete(request, pk):
-    course = get_object_or_404(Course, pk=pk)
-    course.delete()
-    return redirect('course_list')     
+
+def add_course(request):
+	form = AddCourseForm(request.POST or None)
+	if request.user.is_authenticated:
+		if request.method == "POST":
+			if form.is_valid():
+				add_course = form.save()
+				messages.success(request, "Course Added...")
+				return redirect('home')
+		return render(request, 'add_course.html', {'form':form})
+	else:
+		messages.success(request, "You Must Be Logged In...")
+		return redirect('home')
+
+
+def update_course(request, pk):
+	if request.user.is_authenticated:
+		current_course = Course.objects.get(id=pk)
+		form = AddCourseForm(request.POST or None, instance=current_course)
+		if form.is_valid():
+			form.save()
+			messages.success(request, "Course Has Been Updated!")
+			return redirect('home')
+		return render(request, 'update_course.html', {'form':form})
+	else:
+		messages.success(request, "You Must Be Logged In...")
+		return redirect('home')
+
+ 
 
 
 

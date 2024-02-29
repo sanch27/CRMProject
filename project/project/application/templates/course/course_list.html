@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="card">
+    <div class="card-header"><strong>
+        {{ course.name }}
+                </strong>
+    </div>
+    <div class="card-body">
+      <p class="card-text">
+        
+        
+       <strong>:Name</strong> {{ customer_course.name }}<br/>
+       <strong>Description: </strong>{{ customer_course.description }}<br/>
+       <strong>Course.id: </strong>{{ customer_course.id }}<br/>
+      </p>
+      
+      
+    </div>
+  </div>
+
+  <br/><br/>
+  <a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
+
+  <a href="{% url 'delete_course' customer_course.id %}" class="btn btn-danger">Delete</a>
+
+  <a href="{% url 'update_course' customer_course.id %}" class="btn btn-secondary">Update Course</a>
+
+
+   
+
+{% endblock %}
