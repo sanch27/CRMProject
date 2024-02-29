@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-from .models import Record
+from .models import Record, Course, Package, PackageOptions, Subscription
 
 class SignUpForm(UserCreationForm):
 	email = forms.EmailField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Email Address'}))
@@ -49,3 +49,30 @@ class AddRecordForm(forms.ModelForm):
 	class Meta:
 		model = Record
 		exclude = ("user",)
+
+
+class CourseForm(forms.ModelForm):
+    class Meta:
+        model = Course
+        fields = ['course_id', 'course_name', 'description']
+
+
+
+class PackageForm(forms.ModelForm):
+    class Meta:
+        model = Package
+        fields = ['package_id', 'package_name', 'description', 'price']
+
+
+
+class PackageOptionsForm(forms.ModelForm):
+    class Meta:
+        model = PackageOptions
+        fields = ['OptionID', 'PackageID', 'CourseID']
+
+
+
+class SubscriptionForm(forms.ModelForm):
+    class Meta:
+        model = Subscription
+        fields = ['subscription_id', 'user', 'package', 'payment_date', 'expiry_date']		

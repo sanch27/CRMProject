@@ -17,40 +17,38 @@ class Record(models.Model):
 		return(f"{self.first_name} {self.last_name}")
 	
 
+class Course(models.Model):
+    course_id = models.AutoField(primary_key=True)
+    course_name = models.CharField(max_length=200)
+    description = models.TextField()
 
+    def _str_(self):
+        return(f"{self.course_name}")
+    
 
-class Courses(models.Model):
-    CourseID = models.AutoField(primary_key=True)
-    CourseName = models.CharField(max_length=255)
-    CourseDescription = models.TextField()
+class Package(models.Model):
+    package_id = models.AutoField(primary_key=True)
+    package_name = models.CharField(max_length=200)
+    description = models.TextField()
+    price = models.DecimalField(max_digits=10, decimal_places=2)
 
-    def __str__(self):
-        return(f"{self.CourseName}")
-
-class Packages(models.Model):
-    PackageID = models.AutoField(primary_key=True)
-    PackageName = models.CharField(max_length=255)
-    PackageDescription = models.TextField()
-    Price = models.DecimalField(max_digits=10, decimal_places=2)
-
-    def __str__(self):
-        return(f"{self.PackageName}")
+    def _str_(self):
+        return(f"{self.package_name}")
+    
 
 class PackageOptions(models.Model):
     OptionID = models.AutoField(primary_key=True)
-    PackageID = models.ForeignKey(Packages, on_delete=models.CASCADE)
-    CourseID = models.ForeignKey(Courses, on_delete=models.CASCADE)
-    
+    PackageID = models.ForeignKey(Package, on_delete=models.CASCADE)
+    CourseID = models.ForeignKey(Course, on_delete=models.CASCADE)   
 
 
-class Subscriptions(models.Model):
-    SubscriptionID = models.AutoField(primary_key=True)
-    UserID = models.ForeignKey(User, on_delete=models.CASCADE)
-    PackageID = models.ForeignKey(Packages, on_delete=models.CASCADE)
-    PaymentDate = models.DateField()
-    ExpiryDate = models.DateField()
+
+class Subscription(models.Model):
+    subscription_id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    package = models.ForeignKey(Package, on_delete=models.CASCADE)
+    payment_date = models.DateTimeField()
+    expiry_date = models.DateTimeField()
 
     def __str__(self):
-        return (f"SubscriptionID: {self.SubscriptionID}, UserID: {self.UserID}, PackageID: {self.PackageID}, PaymentDate: {self.PaymentDate}, ExpiryDate: {self.ExpiryDate}")
-
-
+        return (f"subscription_id: {self.subscription_id}, UserID: {self.user}, package_id: {self.package}, PaymentDate: {self.payment_date}, ExpiryDate: {self.expiry_date}")

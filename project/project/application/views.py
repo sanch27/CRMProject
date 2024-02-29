@@ -1,12 +1,14 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .forms import SignUpForm, AddRecordForm
-from .models import Record, Courses, Packages, PackageOptions, Subscriptions
+from .forms import SignUpForm, AddRecordForm, CourseForm, PackageForm, PackageOptionsForm, SubscriptionForm
+from .models import Record, Course, Package, PackageOptions, Subscription
+ 
 
 # Create your views here.
 def home(request):
     records = Record.objects.all()
+    
    
 
     #check to see if loggin in
@@ -29,7 +31,7 @@ def home(request):
 
 def logout_user(request):
     logout(request)
-    messages.success(request, "You have been loggedout...")
+    messages.success(request, "You have been logged out...")
     return redirect('home')
 
 def register_user(request):
@@ -98,6 +100,42 @@ def update_record(request, pk):
 	else:
 		messages.success(request, "You Must Be Logged In...")
 		return redirect('home')
+      
+
+
+def course_list(request):
+    courses = Course.objects.all()
+    return render(request, 'myapp/course_list.html', {'courses': courses})
+
+def course_create(request):
+    if request.method == 'POST':
+        form = CourseForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('course_list')
+    else:
+        form = CourseForm()
+    return render(request, 'myapp/course_form.html', {'form': form})
+
+def course_update(request, pk):
+    course = get_object_or_404(Course, pk=pk)
+    if request.method == 'POST':
+        form = CourseForm(request.POST, instance=course)
+        if form.is_valid():
+            form.save()
+            return redirect('course_list')
+    else:
+        form = CourseForm(instance=course)
+    return render(request, 'myapp/course_form.html', {'form': form})
+
+def course_delete(request, pk):
+    course = get_object_or_404(Course, pk=pk)
+    course.delete()
+    return redirect('course_list')     
+
+
+
+
 
 
 

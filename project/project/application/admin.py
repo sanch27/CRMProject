@@ -1,10 +1,10 @@
 from django.contrib import admin
-from .models import Record, Courses, Packages, PackageOptions, Subscriptions
+from .models import Record, Course, Package,PackageOptions, Subscription
 
 admin.site.register(Record)
-admin.site.register(Courses)
-admin.site.register(Packages)
+admin.site.register(Course)
+admin.site.register(Package)
 admin.site.register(PackageOptions)
-admin.site.register(Subscriptions)
+admin.site.register(Subscription)
 
 
