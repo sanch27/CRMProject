@@ -25,7 +25,7 @@
     <tbody>
         <tr>
             {% if records %}
-   {% for record in records %}
+   {% for record in recordsc %}
         <tr>
           <td>{{ record.first_name }}
           {{ record.last_name }} </td>
@@ -58,7 +58,7 @@
   <thead class="table-dark">
     <tr>
       <th scope="col">Name</th>
-      <th scope="col">description</th>
+      <th scope="col">Description</th>
       <th scope="col">Id</th>
     </tr>
   </thead>
@@ -82,8 +82,6 @@
       </tr>
   </tbody>
 </table>
-
-
 
 
 
@@ -116,6 +114,84 @@
 {% endif %}
 
 {% endblock %}
+
+
+
+
+
+
+<br/>
+<br/>
+<br/>
+
+
+<table class="table table-striped table-hover table-bordered ">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Price</th>
+      <th scope="col">Id</th>
+    </tr>
+  </thead>
+ <tbody>
+  <tr>
+      {% if package %}
+           {% for package in package %}
+  <tr>
+    
+    <td>{{ package.name }}</td>
+    <td>{{ package.description }}</td>
+    <td>{{ package.price }}</td>
+    <td><a href="{% url 'package_list' package.id %}">{{ package.id }}</a></td>
+  </tr>
+
+           {% endfor %}
+
+      {% endif %}
+
+
+
+  </tr>
+ </tbody>
+</table>
+
+
+
+{% else %}
+
+
+
+<div class="col-md offset-md-3"></div>
+
+<h1> Login</h1>
+<br/>
+<form method="POST" action="{% url 'home' %}">
+{% csrf_token %}
+
+    <div class="mb-3">
+     
+      <input type="text" class="form-control" name="username", placeholder="Username" required>
+      
+    </div><br/>
+    <div class="mb-3">
+      
+      <input type="password" class="form-control" name="password", placeholder="Password" required>
+    </div>
+    <br/>
+    
+    <button type="submit" class="btn btn-secondary">Login</button>
+  
+
+</form>
+
+
+{% endif %}
+
+{% endblock %}
+
+
+
 
 
 

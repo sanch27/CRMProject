@@ -11,6 +11,18 @@ urlpatterns = [
     path('delete_record/<int:pk>',views.delete_record, name='delete_record'),
     path('add_record/',views.add_record, name='add_record'),
     path('update_record/<int:pk>',views.update_record, name='update_record'),
+    
 
-     path('add_course/',views.add_course, name='add_course'),
+
+    path('course/<int:pk>',views.course_list, name='course'),
+    path('add_course/',views.add_course, name='add_course'),
+    path('delete_course/<int:pk>',views.delete_course, name='delete_course'),
+    path('update_course/<int:pk>',views.update_course, name='update_course'),
+
+
+
+    path('package/<int:pk>',views.package_list, name='package'),
+    path('add_package/',views.add_package, name='add_package'),
+    path('delete_package/<int:pk>',views.delete_package, name='delete_package'),
+    path('update_package/<int:pk>',views.update_package, name='update_package'),
 ]

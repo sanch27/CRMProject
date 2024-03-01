@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="card">
+    <div class="card-header"><strong>
+        {{ package.name }}
+                </strong>
+    </div>
+    <div class="card-body">
+      <p class="card-text">
+        
+        
+       <strong>:Name</strong> {{ customer_package.name }}<br/>
+       <strong>Description: </strong>{{ customer_package.description }}<br/>
+       <strong>package.id: </strong>{{ customer_package.id }}<br/>
+       <strong>price: </strong>{{ customer_package.price }}<br/>
+      </p>
+      
+      
+    </div>
+  </div>
+
+  <br/><br/>
+  <a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
+
+  <a href="{% url 'delete_package' customer_package.id %}" class="btn btn-danger">Delete</a>
+
+  <a href="{% url 'update_package' customer_package.id %}" class="btn btn-secondary">Update Package</a>
+
+
+   
+
+{% endblock %}

@@ -88,3 +88,18 @@ class AddCourseForm(forms.ModelForm):
 	class Meta:
 		model = Course
 		exclude = ("user",)
+            
+
+# Create Add Package Form
+
+class AddPackageForm(forms.ModelForm):
+	name = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Name", "class":"form-control"}), label="")
+	description = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Description", "class":"form-control"}), label="")
+	price = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Price", "class":"form-control"}), label="")
+	
+	class Meta:
+		model = Package
+		exclude = ("user",)
+
+
+
